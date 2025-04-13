@@ -1,0 +1,11 @@
+C:\Users\igorw\Documents\DotNet Projects\ErstelPDF\bin\Debug\net8.0-windows\ErstelPDF.deps.json
+C:\Users\igorw\Documents\DotNet Projects\ErstelPDF\bin\Debug\net8.0-windows\ErstelPDF.dll
+C:\Users\igorw\Documents\DotNet Projects\ErstelPDF\bin\Debug\net8.0-windows\ErstelPDF.pdb
+C:\Users\igorw\Documents\DotNet Projects\ErstelPDF\obj\Debug\net8.0-windows\ErstelPDF.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\igorw\Documents\DotNet Projects\ErstelPDF\obj\Debug\net8.0-windows\ErstelPDF.AssemblyInfoInputs.cache
+C:\Users\igorw\Documents\DotNet Projects\ErstelPDF\obj\Debug\net8.0-windows\ErstelPDF.AssemblyInfo.cs
+C:\Users\igorw\Documents\DotNet Projects\ErstelPDF\obj\Debug\net8.0-windows\ErstelPDF.csproj.CoreCompileInputs.cache
+C:\Users\igorw\Documents\DotNet Projects\ErstelPDF\obj\Debug\net8.0-windows\ErstelPDF.dll
+C:\Users\igorw\Documents\DotNet Projects\ErstelPDF\obj\Debug\net8.0-windows\refint\ErstelPDF.dll
+C:\Users\igorw\Documents\DotNet Projects\ErstelPDF\obj\Debug\net8.0-windows\ErstelPDF.pdb
+C:\Users\igorw\Documents\DotNet Projects\ErstelPDF\obj\Debug\net8.0-windows\ref\ErstelPDF.dll
