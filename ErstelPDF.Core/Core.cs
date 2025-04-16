@@ -8,12 +8,13 @@ namespace ErstelPDF.Core
     public class ErstelCore
     {
         DictionaryPDF dictionaryPDF = new DictionaryPDF();
-
+        int objectID = 1;
         public void CreateEmptyFile(string path)
         {
             using (BinaryWriter writer = new BinaryWriter(File.Create(path)))
             {
                 writer.WriteLine(dictionaryPDF.GetHeaderPDF());
+                writer.WriteLine(dictionaryPDF.GetCatalogObject(ref objectID));
             }
         }
         

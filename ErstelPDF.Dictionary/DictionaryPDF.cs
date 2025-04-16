@@ -26,5 +26,18 @@ namespace ErstelPDF.Dictionary
             return template;
             
         }
+        public string GetOutlinesObject(ref int objectID)
+        {
+            string template = $"{objectID} 0 obj\n" +
+                    "<<\n" +
+                    "/Type /Outlines\n" +
+                    "/Count 0\n" +
+                    ">>\n" +
+                    "endobj\n";
+
+            objectID++;
+
+            return template;
+        }
     }
 }
