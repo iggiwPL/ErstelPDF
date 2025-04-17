@@ -2,13 +2,10 @@
 
 namespace ErstelPDF.Stacks
 {
-    public static class ErstelStacks
+    
+    internal class ErstelStacks
     {
-        
-
-    }
-    internal static class ErstelStacks_Variables
-    {
+        public Queue<String> DocumentTextContent = new Queue<String>();
 
     }
 }
