@@ -3,6 +3,7 @@ using System.Text;
 using System.Runtime.CompilerServices;
 using ErstelPDF.Stacks;
 using ErstelPDF.Dictionary;
+using ErstelPDF.Transforms;
 
 namespace ErstelPDF.Core
 {
