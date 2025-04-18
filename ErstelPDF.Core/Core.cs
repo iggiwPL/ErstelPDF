@@ -18,10 +18,13 @@ namespace ErstelPDF.Core
             // For testing adding content
             erstelStacks.DocumentTextContent.Enqueue(dictionaryPDF.GetHeaderPDF());
             erstelStacks.DocumentTextContent.Enqueue(dictionaryPDF.GetCatalogObject(ref objectID));
+            erstelStacks.DocumentTextContent.Enqueue(dictionaryPDF.GetOutlinesObject(ref objectID));
+            erstelStacks.DocumentTextContent.Enqueue(dictionaryPDF.GetPageObject(ref objectID));
 
             using (BinaryWriter writer = new BinaryWriter(File.Create(path)))
             {
-                for(int i = 0; i <= erstelStacks.DocumentTextContent.Count; i++)
+                // Process all items in the queue
+                while (erstelStacks.DocumentTextContent.Count > 0)
                 {
                     writer.WriteLine(erstelStacks.DocumentTextContent.Dequeue());
                 }
