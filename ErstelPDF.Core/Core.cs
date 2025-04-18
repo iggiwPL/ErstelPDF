@@ -33,25 +33,6 @@ namespace ErstelPDF.Core
         
     }
 
-    // Used for generating cross reference table - byte offsets calculating. This will be used in newer version.
-    internal static class ByteCounter
-    {
-        static int CountBytesObject(string content, ref int totalBytes)
-        {
-            return Encoding.UTF8.GetByteCount(content) + 1;
-        }
-    }
-
-
-    // Used for content of the PDF
-    internal static class BinaryWriter_Extension
-    {
-        public static void WriteLine(this BinaryWriter writer,string text)
-        {
-            writer.Write(text);
-            writer.Write('\n'); // Test
-        }
-    }
 
     
 }
