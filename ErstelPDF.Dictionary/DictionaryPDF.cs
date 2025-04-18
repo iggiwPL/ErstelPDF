@@ -14,21 +14,28 @@ namespace ErstelPDF.Dictionary
         }
         public string GetCatalogObject(ref int currentobjectID)
         {
-            string template = $"{currentobjectID} 0 obj\n" +
+            int catalogID = currentobjectID;
+            int pagesID = currentobjectID + 1;
+            int outlinesID = currentobjectID + 2;
+
+            string template = $"{catalogID} 0 obj\n" +
                     "<<\n" +
                     "/Type /Catalog\n" +
-                    $"/Pages {currentobjectID + 1} 0 R\n" +
-                    $"/Outlines {currentobjectID + 2} 0 R\n" +
+                    $"/Pages {pagesID} 0 R\n" +
+                    $"/Outlines {outlinesID} 0 R\n" +
                     "/PageMode /UseOutlines\n" +
                     ">>\n" +
                     "endobj\n";
-            currentobjectID += 3;
+
+            currentobjectID++;  // Only increment by 1, as we're only creating one object here
             return template;
-            
         }
+
         public string GetOutlinesObject(ref int objectID)
         {
-            string template = $"{objectID} 0 obj\n" +
+            int outlinesID = objectID;
+
+            string template = $"{outlinesID} 0 obj\n" +
                     "<<\n" +
                     "/Type /Outlines\n" +
                     "/Count 0\n" +
@@ -36,7 +43,26 @@ namespace ErstelPDF.Dictionary
                     "endobj\n";
 
             objectID++;
+            return template;
+        }
 
+        public string GetPageObject(ref int objectID)
+        {
+            int pagesID = objectID;
+            int pageID = objectID + 1;
+
+            string template = $"{pagesID} 0 obj\n" +
+                             "<<\n" +
+                             $"/Type /Pages /Kids [{pageID} 0 R] /Count 1\n" +
+                             ">>\n" +
+                             "endobj\n" +
+                             $"{pageID} 0 obj\n" +
+                             "<<\n" +
+                             $"/Type /Page /Parent {pagesID} 0 R /MediaBox [0 0 612 792]\n" +
+                             ">>\n" +
+                             "endobj\n";
+
+            objectID += 2;  // Increment by 2 since we created 2 objects
             return template;
         }
     }
