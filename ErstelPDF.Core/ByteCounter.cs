@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace ErstelPDF.Core
 {
     // Used for generating cross reference table
-    internal class ByteCounter
+    internal static class ByteCounter
     {
-        public int CountBytesObject(string content)
+        public static int CountBytesObject(string content)
         {
             return Encoding.UTF8.GetByteCount(content) + 1;
         }

@@ -9,12 +9,16 @@ using ErstelPDF.Stacks;
 
 namespace ErstelPDF.Transforms
 {
-    internal class XReferenceTransformer
+    internal static class XReferenceTransformer
     {
-        ByteCounter byteCounter = new ByteCounter();
-
+        private static int RowsCount = 1;
+        public static int RowsCountProperty
+        {
+            get { return RowsCount; }
+            set { RowsCount = value; }
+        }
         // Calculate a byte offset to every object
-        public void Transform(Queue<string> PDFObjects)
+        public static void Transform(Queue<string> PDFObjects)
         {
             int byteOffset = 0;
             int generationNumber = 0;
@@ -26,7 +30,7 @@ namespace ErstelPDF.Transforms
             foreach (string PDFObject in PDFObjects)
             {
                 // Count every PDF object
-                byteOffset += byteCounter.CountBytesObject(PDFObject);
+                byteOffset += ByteCounter.CountBytesObject(PDFObject);
 
                 // Format numbers to specification
                 string byteOffsetFormated = string.Format("{0:0000000000}", byteOffset);
@@ -34,6 +38,7 @@ namespace ErstelPDF.Transforms
 
                 // Add to the register
                 ErstelStacks.XreferenceTable.Enqueue(new XReferenceType(byteOffsetFormated, generationNumberFormated, attributeObject));
+                RowsCount++;
             }
         }
     }

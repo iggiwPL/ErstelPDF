@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ErstelPDF.Transforms;
+using ErstelPDF.Core;
+using ErstelPDF.Stacks;
+using ErstelPDF.DataTypes;
 
 namespace ErstelPDF.Dictionary
 {
     internal static class DictionaryPDF
     {
+
         public static string GetHeaderPDF()
         {
             return "%PDF-1.0";
@@ -63,6 +68,23 @@ namespace ErstelPDF.Dictionary
                              "endobj\n";
 
             objectID += 2;  // Increment by 2 since we created 2 objects
+            return template;
+        }
+        public static string GetXrefObject(Queue<string> PDFObjects)
+        {
+            XReferenceTransformer.Transform(PDFObjects);
+            string xref_header = $"xref 0 {XReferenceTransformer.RowsCountProperty}\n";
+            string xref_offsets = "";
+            string template = "";
+
+            foreach (XReferenceType elem in ErstelStacks.XreferenceTable)
+            {
+                xref_offsets = xref_offsets + $"{elem.ByteOffset} {elem.GenerationNumber} {elem.GenerationNumber}\n";
+            }
+
+            template = template + xref_header;
+            template = template + xref_offsets;
+
             return template;
         }
     }

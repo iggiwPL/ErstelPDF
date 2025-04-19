@@ -11,7 +11,7 @@ namespace ErstelPDF.Core
     public class ErstelCore
     {
         // Reference classes
-        XReferenceTransformer xrefTransformer = new XReferenceTransformer();
+        
 
         int objectID = 1;
         
@@ -38,12 +38,19 @@ namespace ErstelPDF.Core
                     writer.WriteLine(PDFObject);
                 }
                 */
-                xrefTransformer.Transform(ErstelStacks.DocumentTextContent);
+                // xrefTransformer.Transform(ErstelStacks.DocumentTextContent);
 
+                /*
                 foreach(XReferenceType elem in ErstelStacks.XreferenceTable)
                 {
                     writer.WriteLine($"{elem.ByteOffset} {elem.GenerationNumber} {elem.AttributeObject}");
                 }
+                */
+                foreach(string PDFObject in ErstelStacks.DocumentTextContent)
+                {
+                    writer.WriteLine(PDFObject);
+                }
+                writer.WriteLine(DictionaryPDF.GetXrefObject(ErstelStacks.DocumentTextContent));
             }
         }
         
