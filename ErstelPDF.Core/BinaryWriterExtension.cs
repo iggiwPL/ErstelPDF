@@ -11,8 +11,8 @@ namespace ErstelPDF.Core
     {
         public static void WriteLine(this BinaryWriter writer, string text)
         {
-            writer.Write(text);
-            writer.Write('\n'); 
+            byte[] bytes = Encoding.ASCII.GetBytes(text + "\n");
+            writer.Write(bytes);
         }
     }
 }

@@ -17,11 +17,13 @@ namespace ErstelPDF.Dictionary
         {
             return "%PDF-1.0";
         }
-        public static string GetCatalogObject(ref int currentobjectID)
+        public static string GetCatalogObject(ref int currentobjectID, ref int rootObjectID)
         {
             int catalogID = currentobjectID;
+            rootObjectID = currentobjectID;
             int pagesID = currentobjectID + 1;
             int outlinesID = currentobjectID + 2;
+            
 
             string template = $"{catalogID} 0 obj\n" +
                     "<<\n" +
@@ -85,6 +87,19 @@ namespace ErstelPDF.Dictionary
             template = template + xref_header;
             template = template + xref_offsets;
 
+            return template;
+        }
+        public static string GetTrailerObject(Queue<string> PDFObjects, int rootObjectID)
+        {
+            TrailerTransformer.Transform(PDFObjects);
+            string template = "trailer\n" +
+                              "<<\n" + 
+                              $"/Size {XReferenceTransformer.RowsCountProperty}\n" +
+                              $"/Root {rootObjectID} 0 R\n" +
+                              ">>\n" +
+                              "startxref\n" +
+                              $"{TrailerTransformer.XrefByteBeginProperty}\n" +
+                              "%%EOF\n";
             return template;
         }
     }

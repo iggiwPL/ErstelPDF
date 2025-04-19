@@ -11,7 +11,7 @@ namespace ErstelPDF.Core
     {
         public static int CountBytesObject(string content)
         {
-            return Encoding.UTF8.GetByteCount(content) + 1;
+            return Encoding.ASCII.GetBytes(content + "\n").Length;
         }
     }
 }
