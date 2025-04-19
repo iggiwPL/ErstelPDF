@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ErstelPDF.Dictionary
 {
-    internal class DictionaryPDF
+    internal static class DictionaryPDF
     {
-        public string GetHeaderPDF()
+        public static string GetHeaderPDF()
         {
             return "%PDF-1.0";
         }
-        public string GetCatalogObject(ref int currentobjectID)
+        public static string GetCatalogObject(ref int currentobjectID)
         {
             int catalogID = currentobjectID;
             int pagesID = currentobjectID + 1;
@@ -31,7 +31,7 @@ namespace ErstelPDF.Dictionary
             return template;
         }
 
-        public string GetOutlinesObject(ref int objectID)
+        public static string GetOutlinesObject(ref int objectID)
         {
             int outlinesID = objectID;
 
@@ -46,7 +46,7 @@ namespace ErstelPDF.Dictionary
             return template;
         }
 
-        public string GetPageObject(ref int objectID)
+        public static string GetPageObject(ref int objectID)
         {
             int pagesID = objectID;
             int pageID = objectID + 1;
