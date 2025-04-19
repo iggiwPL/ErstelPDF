@@ -79,7 +79,7 @@ namespace ErstelPDF.Dictionary
 
             foreach (XReferenceType elem in ErstelStacks.XreferenceTable)
             {
-                xref_offsets = xref_offsets + $"{elem.ByteOffset} {elem.GenerationNumber} {elem.GenerationNumber}\n";
+                xref_offsets = xref_offsets + $"{elem.ByteOffset} {elem.GenerationNumber} {elem.AttributeObject}\n";
             }
 
             template = template + xref_header;

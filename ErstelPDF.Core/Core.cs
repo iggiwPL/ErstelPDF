@@ -25,6 +25,8 @@ namespace ErstelPDF.Core
 
             ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetPageObject(ref objectID));
 
+            ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetXrefObject(ErstelStacks.DocumentTextContent));
+
             using (BinaryWriter writer = new BinaryWriter(File.Create(path)))
             {
                 // Process all items in the queue
@@ -50,7 +52,7 @@ namespace ErstelPDF.Core
                 {
                     writer.WriteLine(PDFObject);
                 }
-                writer.WriteLine(DictionaryPDF.GetXrefObject(ErstelStacks.DocumentTextContent));
+                // writer.WriteLine(DictionaryPDF.GetXrefObject(ErstelStacks.DocumentTextContent));
             }
         }
         
