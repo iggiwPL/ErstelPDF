@@ -15,14 +15,15 @@ namespace ErstelPDF.Dictionary
 
         public static string GetHeaderPDF()
         {
-            return "%PDF-1.0";
+            return "%PDF-1.0\n";
         }
         public static string GetCatalogObject(ref int currentobjectID, ref int rootObjectID)
         {
             int catalogID = currentobjectID;
             rootObjectID = currentobjectID;
-            int pagesID = currentobjectID + 1;
-            int outlinesID = currentobjectID + 2;
+
+            int pagesID = currentobjectID + 2;
+            int outlinesID = currentobjectID + 1;
             
 
             string template = $"{catalogID} 0 obj\n" +
@@ -52,24 +53,31 @@ namespace ErstelPDF.Dictionary
             objectID++;
             return template;
         }
-
-        public static string GetPageObject(ref int objectID)
+        public static string GetPagesObject(ref int objectID)
         {
             int pagesID = objectID;
             int pageID = objectID + 1;
 
             string template = $"{pagesID} 0 obj\n" +
-                             "<<\n" +
-                             $"/Type /Pages /Kids [{pageID} 0 R] /Count 1\n" +
-                             ">>\n" +
-                             "endobj\n" +
-                             $"{pageID} 0 obj\n" +
-                             "<<\n" +
-                             $"/Type /Page /Parent {pagesID} 0 R /MediaBox [0 0 612 792]\n" +
-                             ">>\n" +
+                            "<<\n" +
+                            $"/Type /Pages /Kids [{pageID} 0 R] /Count 1\n" +
+                            ">>\n" +
+                            "endobj\n";
+            objectID++;
+            return template;
+        }
+        public static string GetPageObject(ref int objectID)
+        {
+            int pagesID = objectID - 1;
+            int pageID = objectID;
+
+            string template = $"{pageID} 0 obj\n" +
+                              "<<\n" +
+                              $"/Type /Page /Parent {pagesID} 0 R /MediaBox [0 0 612 792]\n" +
+                              ">>\n" +
                              "endobj\n";
 
-            objectID += 2;  // Increment by 2 since we created 2 objects
+            objectID++;  
             return template;
         }
         public static string GetXrefObject(Queue<string> PDFObjects)

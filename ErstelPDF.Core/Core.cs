@@ -23,7 +23,7 @@ namespace ErstelPDF.Core
             ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetHeaderPDF());
             ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetCatalogObject(ref objectID, ref rootObjectID));
             ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetOutlinesObject(ref objectID));
-
+            ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetPagesObject(ref objectID));
             ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetPageObject(ref objectID));
 
             ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetXrefObject(ErstelStacks.DocumentTextContent));
@@ -53,7 +53,7 @@ namespace ErstelPDF.Core
                 */
                 foreach(string PDFObject in ErstelStacks.DocumentTextContent)
                 {
-                    writer.WriteLine(PDFObject);
+                    writer.WriteASCIIAsString(PDFObject);
                 }
                 // writer.WriteLine(DictionaryPDF.GetXrefObject(ErstelStacks.DocumentTextContent));
             }
