@@ -1,18 +1,12 @@
-﻿using System.IO;
-using System.Text;
-using System.Runtime.CompilerServices;
+﻿using System.Text;
 using ErstelPDF.Stacks;
 using ErstelPDF.Dictionary;
-using ErstelPDF.Transforms;
-using ErstelPDF.DataTypes;
+
 
 namespace ErstelPDF.Core
 {
     public class ErstelCore
     {
-        // Reference classes
-        
-
         int objectID = 1;
         int rootObjectID = 0;
         
@@ -32,30 +26,10 @@ namespace ErstelPDF.Core
 
             using (BinaryWriter writer = new BinaryWriter(File.Create(path), Encoding.ASCII))
             {
-                // Process all items in the queue
-                /*
-                while (erstelStacks.DocumentTextContent.Count > 0)
-                {
-                    string PDFObject = erstelStacks.DocumentTextContent.Dequeue();
-                    PDFObjectBytes += byteCounter.CountBytesObject(PDFObject);
-                    
-
-                    writer.WriteLine(PDFObject);
-                }
-                */
-                // xrefTransformer.Transform(ErstelStacks.DocumentTextContent);
-
-                /*
-                foreach(XReferenceType elem in ErstelStacks.XreferenceTable)
-                {
-                    writer.WriteLine($"{elem.ByteOffset} {elem.GenerationNumber} {elem.AttributeObject}");
-                }
-                */
                 foreach(string PDFObject in ErstelStacks.DocumentTextContent)
                 {
                     writer.WriteASCIIAsString(PDFObject);
                 }
-                // writer.WriteLine(DictionaryPDF.GetXrefObject(ErstelStacks.DocumentTextContent));
             }
         }
         

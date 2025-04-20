@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace ErstelPDF.Core
 {
-    // Used for generating cross reference table
+    // Used for generating cross reference table and trailer
     internal static class ByteCounter
     {
         public static int CountBytesObject(string content)
