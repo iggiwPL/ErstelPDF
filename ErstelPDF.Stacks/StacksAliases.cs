@@ -13,5 +13,10 @@ namespace ErstelPDF.Stacks
         {
             ErstelStacks.DocumentTextContent.Enqueue(new LinkedDocumentType(PDFObject));
         }
+        public static void ReleaseAllContent()
+        {
+            ErstelStacks.DocumentTextContent.Clear();
+            ErstelStacks.XreferenceTable.Clear();
+        }
     }
 }

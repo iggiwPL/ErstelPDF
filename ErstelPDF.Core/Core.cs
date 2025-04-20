@@ -32,6 +32,8 @@ namespace ErstelPDF.Core
                     writer.WriteStringAsASCII(PDFObject.Content);
                 }
             }
+
+            StacksAliases.ReleaseAllContent();
         }
         
     }
