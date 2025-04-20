@@ -1,9 +1,0 @@
-C:\Users\Igor\OneDrive\Dokumenty\C# Projects\ErstelPDF\bin\Release\net8.0\ErstelPDF.deps.json
-C:\Users\Igor\OneDrive\Dokumenty\C# Projects\ErstelPDF\bin\Release\net8.0\ErstelPDF.dll
-C:\Users\Igor\OneDrive\Dokumenty\C# Projects\ErstelPDF\obj\Release\net8.0\ErstelPDF.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Igor\OneDrive\Dokumenty\C# Projects\ErstelPDF\obj\Release\net8.0\ErstelPDF.AssemblyInfoInputs.cache
-C:\Users\Igor\OneDrive\Dokumenty\C# Projects\ErstelPDF\obj\Release\net8.0\ErstelPDF.AssemblyInfo.cs
-C:\Users\Igor\OneDrive\Dokumenty\C# Projects\ErstelPDF\obj\Release\net8.0\ErstelPDF.csproj.CoreCompileInputs.cache
-C:\Users\Igor\OneDrive\Dokumenty\C# Projects\ErstelPDF\obj\Release\net8.0\ErstelPDF.dll
-C:\Users\Igor\OneDrive\Dokumenty\C# Projects\ErstelPDF\obj\Release\net8.0\refint\ErstelPDF.dll
-C:\Users\Igor\OneDrive\Dokumenty\C# Projects\ErstelPDF\obj\Release\net8.0\ref\ErstelPDF.dll

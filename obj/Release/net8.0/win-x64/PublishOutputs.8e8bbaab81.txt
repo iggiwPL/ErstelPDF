@@ -1,2 +1,0 @@
-C:\Users\Igor\OneDrive\Dokumenty\C# Projects\ErstelPDF\bin\Release\net8.0\publish\win-x64\ErstelPDF.dll
-C:\Users\Igor\OneDrive\Dokumenty\C# Projects\ErstelPDF\bin\Release\net8.0\publish\win-x64\ErstelPDF.deps.json
