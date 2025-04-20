@@ -14,26 +14,33 @@ namespace ErstelPDF.Core
         
         public void CreateEmptyFile(string path)
         {
-            // For testing adding content
-            StacksAliases.AddContentToLinked(DictionaryPDF.GetHeaderPDF());
-            StacksAliases.AddContentToLinked(DictionaryPDF.GetCatalogObject(ref objectID, ref rootObjectID));
-            StacksAliases.AddContentToLinked(DictionaryPDF.GetOutlinesObject(ref objectID));
-            StacksAliases.AddContentToLinked(DictionaryPDF.GetPagesObject(ref objectID));
-            StacksAliases.AddContentToLinked(DictionaryPDF.GetPageObject(ref objectID));
-
-            StacksAliases.AddContentToLinked(DictionaryPDF.GetXrefObject(ErstelStacks.DocumentTextContent));
-            StacksAliases.AddContentToLinked(DictionaryPDF.GetTrailerObject(ErstelStacks.DocumentTextContent, rootObjectID));
-
-
-            using (BinaryWriter writer = new BinaryWriter(File.Create(path), Encoding.ASCII))
+            try
             {
-                foreach(LinkedDocumentType PDFObject in ErstelStacks.DocumentTextContent)
-                {
-                    writer.WriteStringAsASCII(PDFObject.Content);
-                }
-            }
+                // For testing adding content
+                StacksAliases.AddContentToLinked(DictionaryPDF.GetHeaderPDF());
+                StacksAliases.AddContentToLinked(DictionaryPDF.GetCatalogObject(ref objectID, ref rootObjectID));
+                StacksAliases.AddContentToLinked(DictionaryPDF.GetOutlinesObject(ref objectID));
+                StacksAliases.AddContentToLinked(DictionaryPDF.GetPagesObject(ref objectID));
+                StacksAliases.AddContentToLinked(DictionaryPDF.GetPageObject(ref objectID));
 
-            StacksAliases.ReleaseAllContent();
+                StacksAliases.AddContentToLinked(DictionaryPDF.GetXrefObject(ErstelStacks.DocumentTextContent));
+                StacksAliases.AddContentToLinked(DictionaryPDF.GetTrailerObject(ErstelStacks.DocumentTextContent, rootObjectID));
+
+
+                using (BinaryWriter writer = new BinaryWriter(File.Create(path), Encoding.ASCII))
+                {
+                    foreach (LinkedDocumentType PDFObject in ErstelStacks.DocumentTextContent)
+                    {
+                        writer.WriteStringAsASCII(PDFObject.Content);
+                    }
+                }
+
+                StacksAliases.ReleaseAllContent();
+            }
+            catch(Exception ex) 
+            {
+                throw new Exception($"Failed to create PDF file: {ex.Message}");
+            }
         }
         
     }
