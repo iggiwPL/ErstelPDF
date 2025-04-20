@@ -1,7 +1,8 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {},
+    "net8.0/win-x64": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
@@ -18,7 +19,7 @@
       "projectName": "ErstelPDF",
       "projectPath": "C:\\Users\\Igor\\OneDrive\\Dokumenty\\C# Projects\\ErstelPDF\\ErstelPDF.csproj",
       "packagesPath": "C:\\Users\\Igor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Igor\\OneDrive\\Dokumenty\\C# Projects\\ErstelPDF\\obj\\",
+      "outputPath": "C:\\Users\\Igor\\OneDrive\\Dokumenty\\C# Projects\\ErstelPDF\\obj\\publish\\win-x64\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -72,6 +73,11 @@
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "win-x64": {
+        "#import": []
       }
     }
   }

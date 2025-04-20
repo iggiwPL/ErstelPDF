@@ -6,6 +6,9 @@
     <Nullable>disable</Nullable>
     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
     <PlatformTarget>x64</PlatformTarget>
+    <VersionPrefix>0.0.3</VersionPrefix>
+    <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+    <FileVersion>$(VersionPrefix)</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
