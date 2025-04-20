@@ -13,7 +13,7 @@ namespace ErstelPDF.Transforms
             set { RowsCount = value; }
         }
         // Calculate a byte offset to every object
-        public static void Transform(Queue<string> PDFObjects)
+        public static void Transform(Queue<LinkedDocumentType> PDFObjects)
         {
             int byteOffset = 0;
             int generationNumber = 0;
@@ -22,10 +22,10 @@ namespace ErstelPDF.Transforms
             // Initialise first
             ErstelStacks.XreferenceTable.Enqueue(new XReferenceType("0000000000", "65535", 'f'));
 
-            foreach (string PDFObject in PDFObjects)
+            foreach (LinkedDocumentType PDFObject in PDFObjects)
             {
                 // Count every PDF object
-                byteOffset += ByteCounter.CountBytesObject(PDFObject);
+                byteOffset += ByteCounter.CountBytesObject(PDFObject.Content);
 
                 // Format numbers to specification
                 string byteOffsetFormated = string.Format("{0:0000000000}", byteOffset);

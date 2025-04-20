@@ -5,7 +5,7 @@ namespace ErstelPDF.Stacks
     
     internal class ErstelStacks
     {
-        public static Queue<String> DocumentTextContent = new Queue<String>();
+        public static Queue<LinkedDocumentType> DocumentTextContent = new Queue<LinkedDocumentType>();
         
         public static Queue<XReferenceType> XreferenceTable = new Queue<XReferenceType>();
 

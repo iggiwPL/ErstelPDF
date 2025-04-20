@@ -13,9 +13,9 @@ namespace ErstelPDF.Dictionary
         }
         public static string GetCatalogObject(ref int currentobjectID, ref int rootObjectID)
         {
-            int catalogID = currentobjectID;
             rootObjectID = currentobjectID;
 
+            int catalogID = currentobjectID;
             int pagesID = currentobjectID + 2;
             int outlinesID = currentobjectID + 1;
             
@@ -29,7 +29,7 @@ namespace ErstelPDF.Dictionary
                     ">>\n" +
                     "endobj\n";
 
-            currentobjectID++;  // Only increment by 1, as we're only creating one object here
+            currentobjectID++;
             return template;
         }
 
@@ -74,9 +74,10 @@ namespace ErstelPDF.Dictionary
             objectID++;  
             return template;
         }
-        public static string GetXrefObject(Queue<string> PDFObjects)
+        public static string GetXrefObject(Queue<LinkedDocumentType> PDFObjects)
         {
             XReferenceTransformer.Transform(PDFObjects);
+
             string xref_header = $"xref 0 {XReferenceTransformer.RowsCountProperty}\n";
             string xref_offsets = "";
             string template = "";
@@ -86,14 +87,16 @@ namespace ErstelPDF.Dictionary
                 xref_offsets = xref_offsets + $"{elem.ByteOffset} {elem.GenerationNumber} {elem.AttributeObject}\n";
             }
 
-            template = template + xref_header;
-            template = template + xref_offsets;
+            // Merge xref header and offsets to one
+            template += xref_header;
+            template += xref_offsets;
 
             return template;
         }
-        public static string GetTrailerObject(Queue<string> PDFObjects, int rootObjectID)
+        public static string GetTrailerObject(Queue<LinkedDocumentType> PDFObjects, int rootObjectID)
         {
             TrailerTransformer.Transform(PDFObjects);
+
             string template = "trailer\n" +
                               "<<\n" + 
                               $"/Size {XReferenceTransformer.RowsCountProperty}\n" +

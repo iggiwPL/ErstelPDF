@@ -1,4 +1,5 @@
 ﻿using ErstelPDF.Core;
+using ErstelPDF.DataTypes;
 
 namespace ErstelPDF.Transforms
 {
@@ -11,11 +12,11 @@ namespace ErstelPDF.Transforms
             set { XrefByteBegin = value; }
         }
 
-        public static void Transform(Queue<string> PDFObjects)
+        public static void Transform(Queue<LinkedDocumentType> PDFObjects)
         {
             foreach (var PDFObject in PDFObjects)
             {
-                XrefByteBegin += ByteCounter.CountBytesObject(PDFObject);
+                XrefByteBegin += ByteCounter.CountBytesObject(PDFObject.Content);
             }
         }
     }

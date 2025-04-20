@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using ErstelPDF.Stacks;
 using ErstelPDF.Dictionary;
+using ErstelPDF.DataTypes;
 
 
 namespace ErstelPDF.Core
@@ -14,21 +15,21 @@ namespace ErstelPDF.Core
         public void CreateEmptyFile(string path)
         {
             // For testing adding content
-            ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetHeaderPDF());
-            ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetCatalogObject(ref objectID, ref rootObjectID));
-            ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetOutlinesObject(ref objectID));
-            ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetPagesObject(ref objectID));
-            ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetPageObject(ref objectID));
+            StacksAliases.AddContentToLinked(DictionaryPDF.GetHeaderPDF());
+            StacksAliases.AddContentToLinked(DictionaryPDF.GetCatalogObject(ref objectID, ref rootObjectID));
+            StacksAliases.AddContentToLinked(DictionaryPDF.GetOutlinesObject(ref objectID));
+            StacksAliases.AddContentToLinked(DictionaryPDF.GetPagesObject(ref objectID));
+            StacksAliases.AddContentToLinked(DictionaryPDF.GetPageObject(ref objectID));
 
-            ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetXrefObject(ErstelStacks.DocumentTextContent));
-            ErstelStacks.DocumentTextContent.Enqueue(DictionaryPDF.GetTrailerObject(ErstelStacks.DocumentTextContent, rootObjectID));
+            StacksAliases.AddContentToLinked(DictionaryPDF.GetXrefObject(ErstelStacks.DocumentTextContent));
+            StacksAliases.AddContentToLinked(DictionaryPDF.GetTrailerObject(ErstelStacks.DocumentTextContent, rootObjectID));
 
 
             using (BinaryWriter writer = new BinaryWriter(File.Create(path), Encoding.ASCII))
             {
-                foreach(string PDFObject in ErstelStacks.DocumentTextContent)
+                foreach(LinkedDocumentType PDFObject in ErstelStacks.DocumentTextContent)
                 {
-                    writer.WriteASCIIAsString(PDFObject);
+                    writer.WriteStringAsASCII(PDFObject.Content);
                 }
             }
         }
