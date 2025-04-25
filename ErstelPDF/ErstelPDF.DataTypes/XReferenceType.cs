@@ -6,6 +6,9 @@
         public string GenerationNumber { get; set; }
         public char AttributeObject { get; set; }
 
+
+        public XReferenceType() { }
+
         public XReferenceType(string ByteOffset, string GenerationNumber, char AttributeObject) 
         { 
             this.ByteOffset = ByteOffset;
@@ -23,7 +26,7 @@
         }
         public override int GetHashCode()
         {
-            return ByteOffset.GetHashCode() ^ GenerationNumber.GetHashCode() ^ AttributeObject.GetHashCode();
+            return (ByteOffset?.GetHashCode() ?? 0) ^ (GenerationNumber?.GetHashCode() ?? 0) ^ AttributeObject.GetHashCode();
         }
     }
 }
