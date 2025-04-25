@@ -1,6 +1,6 @@
 ﻿namespace ErstelPDF.DataTypes
 {
-    internal class XReferenceType
+    public class XReferenceType
     {
         public string ByteOffset { get; set; }
         public string GenerationNumber { get; set; }
