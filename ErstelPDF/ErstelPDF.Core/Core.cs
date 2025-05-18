@@ -52,7 +52,7 @@ namespace ErstelPDF.Core
             }
         }
 
-        public void CreateCmpiledFile(string path)
+        public void CompileToPDF(string path)
         {
             try
             {
