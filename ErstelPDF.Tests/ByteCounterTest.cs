@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ErstelPDF.Tests
 {
+    [TestFixture]
     internal class ByteCounterTest
     {
         ByteCounter _byteCounter;

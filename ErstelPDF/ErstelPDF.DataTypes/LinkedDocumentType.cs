@@ -11,6 +11,8 @@ namespace ErstelPDF.DataTypes
     {
         public string Content { get; set; }
 
+        public LinkedDocumentType() { }
+
         public LinkedDocumentType(string Content)
         {
             this.Content = Content;
@@ -27,8 +29,8 @@ namespace ErstelPDF.DataTypes
         }
 
         public override int GetHashCode() 
-        { 
-            return Content.GetHashCode();
+        {
+            return Content?.GetHashCode() ?? 0;
         } 
     }
 }

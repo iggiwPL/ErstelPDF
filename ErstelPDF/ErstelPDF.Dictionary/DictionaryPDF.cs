@@ -18,6 +18,8 @@ namespace ErstelPDF.Dictionary
         {
             return "%PDF-1.0\n";
         }
+
+        // These object will be specialised to each classes and soon writen the tests for because there are untestable
         public string GetCatalogObject(ref int currentobjectID, ref int rootObjectID)
         {
             rootObjectID = currentobjectID;
