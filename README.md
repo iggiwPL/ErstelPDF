@@ -9,7 +9,7 @@ The ErstelPDF is a designed library with a small size to create PDF Files. The n
 The library uses a 1.0 PDF version because the money costs for buying a specification PDF 2.0. Also planned is to put AI features based on edge computing to preprocess using the ONNX pretrained models that run locally on machines.
 
 ## Standards
-- Every public method must have handling exceptions.
+- Every public method of the API  must have handling exceptions.
 - Unit Testing!
 - Enterprise grade
 
@@ -17,7 +17,7 @@ The library uses a 1.0 PDF version because the money costs for buying a specific
 - v.0.0.1ind - Create an empty PDF with stacks with only header. | **Done**
 - v.0.0.2ind - Create a dictionary syntax for generating an empty page of PDF. | **Done**
 - v.0.0.3ind - Generate an empty PDF page and unify the datatypes Queues. | **Done**
-- v.0.0.4ind - Making still solid changes covering with unit tests. | **Done**
+- v.0.0.4ind - Cover with unit tests. | **Done**
 
 ## Namespace Functionalities
 
