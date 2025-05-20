@@ -17,7 +17,7 @@ The library uses a 1.0 PDF version because the money costs for buying a specific
 - v.0.0.1ind - Create an empty PDF with stacks with only header. | **Done**
 - v.0.0.2ind - Create a dictionary syntax for generating an empty page of PDF. | **Done**
 - v.0.0.3ind - Generate an empty PDF page and unify the datatypes Queues. | **Done**
-- v.0.0.4ind - Make solid changes like not 'hard coded' values and unit tests.
+- v.0.0.4ind - Making still solid changes like not 'hard coded' values and unit tests.
 
 ## Namespace Functionalities
 
