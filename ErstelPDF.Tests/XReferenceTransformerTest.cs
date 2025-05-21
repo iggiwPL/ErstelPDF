@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ErstelPDF.Core;
 using ErstelPDF.DataTypes;
 using ErstelPDF.Dictionary;
 using ErstelPDF.Stacks;
@@ -13,12 +14,14 @@ namespace ErstelPDF.Tests
     [TestFixture]
     internal class XReferenceTransformerTest
     {
-        XReferenceTransformer _transformer;
+        IXReferenceTransformer _transformer;
+        IByteCounter _ByteCounter;
 
         [SetUp]
         public void Setup()
         {
             _transformer = new XReferenceTransformer();
+            _ByteCounter = new ByteCounter();
         }
         [Test]
         public void InitialiseTableRecordFind()
@@ -64,7 +67,7 @@ namespace ErstelPDF.Tests
             _stacks.DocumentTextContent.Enqueue(new LinkedDocumentType("h1"));
             _stacks.DocumentTextContent.Enqueue(new LinkedDocumentType("h2"));
 
-            _transformer.Transform(_stacks.DocumentTextContent, _stacks.XreferenceTable);
+            _transformer.Transform(_ByteCounter, _stacks.DocumentTextContent, _stacks.XreferenceTable);
 
             // Includinng the start record
             Assert.That(_stacks.XreferenceTable.Count(), Is.EqualTo(3));
@@ -79,7 +82,7 @@ namespace ErstelPDF.Tests
 
             foreach(LinkedDocumentType PDFObject in _stacks.DocumentTextContent)
             {
-                _transformer.AddBytestoXrefOffset(PDFObject, ref result);
+                _transformer.AddBytestoXrefOffset(_ByteCounter,PDFObject, ref result);
             }
             Assert.That(result, Is.EqualTo(3));
 

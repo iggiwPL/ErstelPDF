@@ -3,7 +3,7 @@
 namespace ErstelPDF.Core
 {
     // Used for generating cross reference table and trailer
-    public class ByteCounter
+    public class ByteCounter : IByteCounter
     {
         public int CountBytesObject(string content)
         {

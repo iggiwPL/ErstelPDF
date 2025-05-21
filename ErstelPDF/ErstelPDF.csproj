@@ -22,4 +22,8 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="ErstelPDF.Stacks\Interfaces\" />
+  </ItemGroup>
+
 </Project>

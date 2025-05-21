@@ -1,19 +1,12 @@
 ﻿using ErstelPDF.Transforms;
 using ErstelPDF.Stacks;
 using ErstelPDF.DataTypes;
+using ErstelPDF.Core;
 
 namespace ErstelPDF.Dictionary
 {
     public class DictionaryPDF
     {
-        XReferenceTransformer _xreftransformer;
-        TrailerTransformer _trailertransformer;
-
-        public DictionaryPDF()
-        {
-            _xreftransformer = new XReferenceTransformer();
-            _trailertransformer = new TrailerTransformer();
-        }
         public string GetHeaderPDF()
         {
             return "%PDF-1.0\n";
@@ -83,11 +76,11 @@ namespace ErstelPDF.Dictionary
             objectID++;  
             return template;
         }
-        public string GetXrefObject(Queue<LinkedDocumentType> PDFObjects, Queue<XReferenceType> XrefTable)
+        public string GetXrefObject(IXReferenceTransformer IxReferenceTransformer, IByteCounter IbyteCounter,Queue<LinkedDocumentType> PDFObjects, Queue<XReferenceType> XrefTable)
         {
-            _xreftransformer.Transform(PDFObjects, XrefTable);
+            IxReferenceTransformer.Transform(IbyteCounter, PDFObjects, XrefTable);
 
-            string xref_header = $"xref 0 {_xreftransformer.RowsCountProperty}\n";
+            string xref_header = $"xref 0 {IxReferenceTransformer.RowsCountProperty}\n";
             string xref_offsets = "";
             string template = "";
 
@@ -102,17 +95,17 @@ namespace ErstelPDF.Dictionary
 
             return template;
         }
-        public string GetTrailerObject(Queue<LinkedDocumentType> PDFObjects, int rootObjectID)
+        public string GetTrailerObject(IByteCounter IbyteCounter, ITrailerTransformer ItrailerTransformer,IXReferenceTransformer IxReferenceTransformer,Queue<LinkedDocumentType> PDFObjects, int rootObjectID)
         {
-            _trailertransformer.Transform(PDFObjects);
+            ItrailerTransformer.Transform(IbyteCounter, PDFObjects);
 
             string template = "trailer\n" +
                               "<<\n" + 
-                              $"/Size {_xreftransformer.RowsCountProperty}\n" +
+                              $"/Size {IxReferenceTransformer.RowsCountProperty}\n" +
                               $"/Root {rootObjectID} 0 R\n" +
                               ">>\n" +
                               "startxref\n" +
-                              $"{_trailertransformer.XrefByteBeginProperty}\n" +
+                              $"{ItrailerTransformer.XrefByteBeginProperty}\n" +
                               "%%EOF\n";
             return template;
         }

@@ -11,19 +11,19 @@ namespace ErstelPDF.Tests
     [TestFixture]
     internal class ByteCounterTest
     {
-        ByteCounter _byteCounter;
+        IByteCounter _ByteCounter;
 
         [SetUp]
         public void Setup()
         {
-            _byteCounter = new ByteCounter();
+            _ByteCounter = new ByteCounter();
         }
 
         [TestCase("n", 2)]
         [TestCase("n\n", 3)]
         public void CountBytesObjectTest(string content, int expected)
         {
-            int output = _byteCounter.CountBytesObject(content);
+            int output = _ByteCounter.CountBytesObject(content);
             Assert.That(output, Is.EqualTo(expected));
         }
     }

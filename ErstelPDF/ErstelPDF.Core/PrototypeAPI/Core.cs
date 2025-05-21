@@ -3,6 +3,7 @@ using ErstelPDF.Stacks;
 using ErstelPDF.Dictionary;
 using ErstelPDF.DataTypes;
 using System.IO;
+using ErstelPDF.Transforms;
 
 
 namespace ErstelPDF.Core
@@ -15,10 +16,21 @@ namespace ErstelPDF.Core
         ErstelStacks _erstelStacks;
         DictionaryPDF _dictionaryPDF; 
 
+        IByteCounter _ByteCounter;
+        IXReferenceTransformer _xReferenceTransformer;
+        ITrailerTransformer _trailerTransformer;
+
         public ErstelCore()
         {
             _erstelStacks = new ErstelStacks();
             _dictionaryPDF = new DictionaryPDF();
+
+            // Interfaces dependencies
+            _ByteCounter = new ByteCounter();
+            _xReferenceTransformer = new XReferenceTransformer();
+            _trailerTransformer = new TrailerTransformer();
+
+            
         }
 
         public void AddObject(string content)
@@ -34,8 +46,8 @@ namespace ErstelPDF.Core
             AddObject(_dictionaryPDF.GetPagesObject(ref objectID));
             AddObject(_dictionaryPDF.GetPageObject(ref objectID));
 
-            AddObject(_dictionaryPDF.GetXrefObject(_erstelStacks.DocumentTextContent, _erstelStacks.XreferenceTable));
-            AddObject(_dictionaryPDF.GetTrailerObject(_erstelStacks.DocumentTextContent, rootObjectID));
+            AddObject(_dictionaryPDF.GetXrefObject(_xReferenceTransformer,_ByteCounter,_erstelStacks.DocumentTextContent, _erstelStacks.XreferenceTable));
+            AddObject(_dictionaryPDF.GetTrailerObject(_ByteCounter, _trailerTransformer,_xReferenceTransformer, _erstelStacks.DocumentTextContent, rootObjectID));
         }
         public void WriteAllObjects(BinaryWriter writer)
         {

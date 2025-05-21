@@ -4,19 +4,13 @@ using ErstelPDF.Stacks;
 
 namespace ErstelPDF.Transforms
 {
-    public class XReferenceTransformer
+    public class XReferenceTransformer : IXReferenceTransformer
     {
-        ByteCounter _byteCounter;
-
         private int RowsCount = 1;
         private int byteOffset = 0;
         private int generationNumber = 0;
         private char attributeObject = 'n';
 
-        public XReferenceTransformer()
-        {
-            _byteCounter = new ByteCounter();
-        }
         public int RowsCountProperty
         {
             get { return RowsCount; }
@@ -27,7 +21,7 @@ namespace ErstelPDF.Transforms
             // Initialise first
             XrefTable.Enqueue(new XReferenceType("0000000000", "65535", 'f'));
         }
-        public  string FormatOffset(int byteOffset)
+        public string FormatOffset(int byteOffset)
         {
             return string.Format("{0:0000000000}", byteOffset);
         }
@@ -39,19 +33,19 @@ namespace ErstelPDF.Transforms
         {
             XrefTable.Enqueue(new XReferenceType(FormatOffset(ByteOffset), FormatGenerationNumber(genNumber), attributeObj));
         }
-        public void AddBytestoXrefOffset(LinkedDocumentType PDFObject, ref int XrefOffset)
+        public void AddBytestoXrefOffset(IByteCounter IbyteCounter,LinkedDocumentType PDFObject, ref int XrefOffset)
         {
-            XrefOffset += _byteCounter.CountBytesObject(PDFObject.Content);
+            XrefOffset += IbyteCounter.CountBytesObject(PDFObject.Content);
         }
         // Calculate a byte offset to every object
-        public void Transform(Queue<LinkedDocumentType> PDFObjects, Queue<XReferenceType> XrefTable)
+        public void Transform(IByteCounter IbyteCounter,Queue<LinkedDocumentType> PDFObjects, Queue<XReferenceType> XrefTable)
         {
             InitialiseTable(XrefTable);
 
             foreach (LinkedDocumentType PDFObject in PDFObjects)
             {
                 // Count every PDF object
-                AddBytestoXrefOffset(PDFObject, ref byteOffset);
+                AddBytestoXrefOffset(IbyteCounter,PDFObject, ref byteOffset);
 
                 // Add to the register
                 AddToRegisterXref(XrefTable, byteOffset, generationNumber, attributeObject);

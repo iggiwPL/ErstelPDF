@@ -998,23 +998,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Igor\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\igorw\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Igor\\OneDrive\\Dokumenty\\C# Projects\\ErstelPDF.Tests\\ErstelPDF.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\igorw\\Documents\\DotNet Projects\\ErstelPDF-LIB\\ErstelPDF.Tests\\ErstelPDF.Tests.csproj",
       "projectName": "ErstelPDF.Tests",
-      "projectPath": "C:\\Users\\Igor\\OneDrive\\Dokumenty\\C# Projects\\ErstelPDF.Tests\\ErstelPDF.Tests.csproj",
-      "packagesPath": "C:\\Users\\Igor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Igor\\OneDrive\\Dokumenty\\C# Projects\\ErstelPDF.Tests\\obj\\",
+      "projectPath": "C:\\Users\\igorw\\Documents\\DotNet Projects\\ErstelPDF-LIB\\ErstelPDF.Tests\\ErstelPDF.Tests.csproj",
+      "packagesPath": "C:\\Users\\igorw\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\igorw\\Documents\\DotNet Projects\\ErstelPDF-LIB\\ErstelPDF.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Igor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\igorw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1022,14 +1023,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "c:\\program files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Igor\\OneDrive\\Dokumenty\\C# Projects\\ErstelPDF\\ErstelPDF.csproj": {
-              "projectPath": "C:\\Users\\Igor\\OneDrive\\Dokumenty\\C# Projects\\ErstelPDF\\ErstelPDF.csproj"
+            "C:\\Users\\igorw\\Documents\\DotNet Projects\\ErstelPDF-LIB\\ErstelPDF\\ErstelPDF.csproj": {
+              "projectPath": "C:\\Users\\igorw\\Documents\\DotNet Projects\\ErstelPDF-LIB\\ErstelPDF\\ErstelPDF.csproj"
             }
           }
         }
@@ -1043,7 +1045,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -1086,7 +1089,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

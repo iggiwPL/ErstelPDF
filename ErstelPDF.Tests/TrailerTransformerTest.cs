@@ -7,6 +7,7 @@ using ErstelPDF.Dictionary;
 using ErstelPDF.Stacks;
 using ErstelPDF.Transforms;
 using ErstelPDF.DataTypes;
+using ErstelPDF.Core;
 
 namespace ErstelPDF.Tests
 {
@@ -18,13 +19,17 @@ namespace ErstelPDF.Tests
         {
             ErstelStacks erstelStacks = new ErstelStacks();
             DictionaryPDF dictionaryPDF = new DictionaryPDF();
-            TrailerTransformer transformer = new TrailerTransformer();
+
+
+            ITrailerTransformer trailerTransformer = new TrailerTransformer();
+            IByteCounter _ByteCounter = new ByteCounter();
+            
 
             erstelStacks.DocumentTextContent.Enqueue(new LinkedDocumentType(dictionaryPDF.GetHeaderPDF()));
-            transformer.Transform(erstelStacks.DocumentTextContent);
+            trailerTransformer.Transform(_ByteCounter, erstelStacks.DocumentTextContent);
 
             // Why 10? return "%PDF-1.0\n"; Count characters are with new line 9 and plus one that is pointing to newline
-            Assert.That(transformer.XrefByteBeginProperty, Is.EqualTo(10));
+            Assert.That(trailerTransformer.XrefByteBeginProperty, Is.EqualTo(10));
 
 
         }
