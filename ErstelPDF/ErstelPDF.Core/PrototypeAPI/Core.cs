@@ -10,8 +10,6 @@ namespace ErstelPDF.Core
 {
     public class ErstelCore
     {
-        int objectID = 1;
-        int rootObjectID = 0;
 
         ErstelStacks _erstelStacks;
         DictionaryPDF _dictionaryPDF; 
@@ -20,25 +18,12 @@ namespace ErstelPDF.Core
         IXReferenceTransformer _xReferenceTransformer;
         ITrailerTransformer _trailerTransformer;
 
-        public ErstelCore()
-        {
-            _erstelStacks = new ErstelStacks();
-            _dictionaryPDF = new DictionaryPDF();
-
-            // Interfaces dependencies
-            _ByteCounter = new ByteCounter();
-            _xReferenceTransformer = new XReferenceTransformer();
-            _trailerTransformer = new TrailerTransformer();
-
-            
-        }
-
         public void AddObject(string content)
         {
             _erstelStacks.DocumentTextContent.Enqueue(new LinkedDocumentType(content));
         }
         
-        public void AddEmptyPageStructure()
+        public void AddEmptyPageStructure(IByteCounter IbyteCounter,IXReferenceTransformer IxReferenceTransformer, ITrailerTransformer ItrailerTransformer,ErstelStacks erstelStacks, ref int objectID, ref int rootObjectID)
         {
             AddObject(_dictionaryPDF.GetHeaderPDF());
             AddObject(_dictionaryPDF.GetCatalogObject(ref objectID, ref rootObjectID));
@@ -46,8 +31,8 @@ namespace ErstelPDF.Core
             AddObject(_dictionaryPDF.GetPagesObject(ref objectID));
             AddObject(_dictionaryPDF.GetPageObject(ref objectID));
 
-            AddObject(_dictionaryPDF.GetXrefObject(_xReferenceTransformer,_ByteCounter,_erstelStacks.DocumentTextContent, _erstelStacks.XreferenceTable));
-            AddObject(_dictionaryPDF.GetTrailerObject(_ByteCounter, _trailerTransformer,_xReferenceTransformer, _erstelStacks.DocumentTextContent, rootObjectID));
+            AddObject(_dictionaryPDF.GetXrefObject(IxReferenceTransformer,IbyteCounter,erstelStacks.DocumentTextContent, erstelStacks.XreferenceTable));
+            AddObject(_dictionaryPDF.GetTrailerObject(IbyteCounter, ItrailerTransformer,IxReferenceTransformer, erstelStacks.DocumentTextContent, rootObjectID));
         }
         public void WriteAllObjects(BinaryWriter writer)
         {
@@ -64,12 +49,27 @@ namespace ErstelPDF.Core
             }
         }
 
+
+        // Now thi is self contained
         public void CompileToPDF(string path)
         {
+            int objectID = 1;
+            int rootObjectID = 0;
+
+
+            _erstelStacks = new ErstelStacks();
+            _dictionaryPDF = new DictionaryPDF();
+
+            // Interfaces dependencies
+            _ByteCounter = new ByteCounter();
+            _xReferenceTransformer = new XReferenceTransformer();
+            _trailerTransformer = new TrailerTransformer();
+
             try
             {
+
                 // Adds empty page structure to registers
-                AddEmptyPageStructure();
+                AddEmptyPageStructure(_ByteCounter, _xReferenceTransformer, _trailerTransformer, _erstelStacks, ref objectID, ref rootObjectID);
 
                 // For testing adding contet
                 CreateFile(path);
