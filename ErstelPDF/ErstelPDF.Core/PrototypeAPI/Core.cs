@@ -10,78 +10,111 @@ namespace ErstelPDF.Core
 {
     public class ErstelCore
     {
-
-        ErstelStacks _erstelStacks;
-        DictionaryPDF _dictionaryPDF; 
-
-        IByteCounter _ByteCounter;
-        IXReferenceTransformer _xReferenceTransformer;
-        ITrailerTransformer _trailerTransformer;
-
-        public void AddObject(string content)
+        public void AddObject(string content, ErstelStacks erstelStacks)
         {
-            _erstelStacks.DocumentTextContent.Enqueue(new LinkedDocumentType(content));
+            erstelStacks.DocumentTextContent.Enqueue(new LinkedDocumentType(content));
         }
         
-        public void AddEmptyPageStructure(IByteCounter IbyteCounter,IXReferenceTransformer IxReferenceTransformer, ITrailerTransformer ItrailerTransformer,ErstelStacks erstelStacks, ref int objectID, ref int rootObjectID)
+        public void AddEmptyPageStructure(IByteCounter IbyteCounter,IXReferenceTransformer IxReferenceTransformer, 
+            ITrailerTransformer ItrailerTransformer,ErstelStacks erstelStacks,DictionaryPDF dictionaryPDF, 
+            ref int objectID, ref int rootObjectID)
         {
-            AddObject(_dictionaryPDF.GetHeaderPDF());
-            AddObject(_dictionaryPDF.GetCatalogObject(ref objectID, ref rootObjectID));
-            AddObject(_dictionaryPDF.GetOutlinesObject(ref objectID));
-            AddObject(_dictionaryPDF.GetPagesObject(ref objectID));
-            AddObject(_dictionaryPDF.GetPageObject(ref objectID));
+            AddObject(dictionaryPDF.GetHeaderPDF(), erstelStacks);
+            AddObject(dictionaryPDF.GetCatalogObject(ref objectID, ref rootObjectID), erstelStacks);
+            AddObject(dictionaryPDF.GetOutlinesObject(ref objectID), erstelStacks);
+            AddObject(dictionaryPDF.GetPagesObject(ref objectID), erstelStacks);
+            AddObject(dictionaryPDF.GetPageObject(ref objectID), erstelStacks);
 
-            AddObject(_dictionaryPDF.GetXrefObject(IxReferenceTransformer,IbyteCounter,erstelStacks.DocumentTextContent, erstelStacks.XreferenceTable));
-            AddObject(_dictionaryPDF.GetTrailerObject(IbyteCounter, ItrailerTransformer,IxReferenceTransformer, erstelStacks.DocumentTextContent, rootObjectID));
+            AddObject(dictionaryPDF.GetXrefObject(IxReferenceTransformer,IbyteCounter,erstelStacks.DocumentTextContent,
+                erstelStacks.XreferenceTable), erstelStacks);
+            AddObject(dictionaryPDF.GetTrailerObject(IbyteCounter, ItrailerTransformer,IxReferenceTransformer, 
+                erstelStacks.DocumentTextContent, rootObjectID), erstelStacks);
         }
-        public void WriteAllObjects(BinaryWriter writer)
+        public void WriteAllObjects(BinaryWriter writer, ErstelStacks erstelStacks)
         {
-            foreach (LinkedDocumentType PDFObject in _erstelStacks.DocumentTextContent)
+            foreach (LinkedDocumentType PDFObject in erstelStacks.DocumentTextContent)
             {
                 writer.WriteStringAsASCII(PDFObject.Content);
             }
         }
-        public void CreateFile(string path)
+        public void CreateFile(string path, ErstelStacks erstelStacks)
         {
             using (BinaryWriter writer = new BinaryWriter(File.Create(path), Encoding.ASCII))
             {
-                WriteAllObjects(writer);
+                WriteAllObjects(writer, erstelStacks);
             }
         }
 
 
-        // Now thi is self contained
+        // Now this is self contained
         public void CompileToPDF(string path)
         {
             int objectID = 1;
             int rootObjectID = 0;
 
 
-            _erstelStacks = new ErstelStacks();
-            _dictionaryPDF = new DictionaryPDF();
+            var _erstelStacks = new ErstelStacks();
+            var _dictionaryPDF = new DictionaryPDF();
 
             // Interfaces dependencies
-            _ByteCounter = new ByteCounter();
-            _xReferenceTransformer = new XReferenceTransformer();
-            _trailerTransformer = new TrailerTransformer();
+            var _ByteCounter = new ByteCounter();
+            var _xReferenceTransformer = new XReferenceTransformer();
+            var _trailerTransformer = new TrailerTransformer();
 
             try
             {
 
                 // Adds empty page structure to registers
-                AddEmptyPageStructure(_ByteCounter, _xReferenceTransformer, _trailerTransformer, _erstelStacks, ref objectID, ref rootObjectID);
+                AddEmptyPageStructure(_ByteCounter, _xReferenceTransformer, _trailerTransformer,
+                    _erstelStacks,_dictionaryPDF ,ref objectID, ref rootObjectID);
 
                 // For testing adding contet
-                CreateFile(path);
+                CreateFile(path, _erstelStacks);
 
-                
+
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 throw new Exception($"Failed to create PDF file: {ex.Message}");
             }
         }
-        
+        public async Task CompileToPDFAsync(string path)
+        {
+            await Task.Run(() => {
+                int objectID = 1;
+                int rootObjectID = 0;
+
+
+                var _erstelStacks = new ErstelStacks();
+                var _dictionaryPDF = new DictionaryPDF();
+
+                // Interfaces dependencies
+                var _ByteCounter = new ByteCounter();
+                var _xReferenceTransformer = new XReferenceTransformer();
+                var _trailerTransformer = new TrailerTransformer();
+
+                try
+                {
+
+                    // Adds empty page structure to registers
+                    AddEmptyPageStructure(_ByteCounter, _xReferenceTransformer, _trailerTransformer, 
+                        _erstelStacks, _dictionaryPDF, ref objectID, ref rootObjectID);
+
+                    // For testing adding contet
+                    CreateFile(path, _erstelStacks);
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Failed to create PDF file: {ex.Message}");
+                }
+
+            });
+
+        }
+
+
     }
 
 
