@@ -19,7 +19,10 @@ namespace ErstelPDF.Core
             ITrailerTransformer ItrailerTransformer,ErstelStacks erstelStacks,DictionaryPDF dictionaryPDF, 
             ref int objectID, ref int rootObjectID)
         {
-            AddObject(dictionaryPDF.GetHeaderPDF(), erstelStacks);
+            IHeaderPDF headerPDF = new HeaderPDF();
+
+            AddObject(headerPDF.GetHeader(HeaderPDF.VersionPDF.PDF_1_0), erstelStacks);
+
             AddObject(dictionaryPDF.GetCatalogObject(ref objectID, ref rootObjectID), erstelStacks);
             AddObject(dictionaryPDF.GetOutlinesObject(ref objectID), erstelStacks);
             AddObject(dictionaryPDF.GetPagesObject(ref objectID), erstelStacks);
