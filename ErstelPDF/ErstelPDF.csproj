@@ -9,17 +9,20 @@
     <VersionPrefix>0.0.3</VersionPrefix>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
     <FileVersion>$(VersionPrefix)</FileVersion>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>True</Optimize>
     <DebugType>none</DebugType>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <IsAotCompatible>False</IsAotCompatible>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <IsAotCompatible>False</IsAotCompatible>
   </PropertyGroup>
 
 </Project>

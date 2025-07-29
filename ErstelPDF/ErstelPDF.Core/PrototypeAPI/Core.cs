@@ -16,22 +16,49 @@ namespace ErstelPDF.Core
         }
         
         public void AddEmptyPageStructure(IByteCounter IbyteCounter,IXReferenceTransformer IxReferenceTransformer, 
-            ITrailerTransformer ItrailerTransformer,ErstelStacks erstelStacks,DictionaryPDF dictionaryPDF, 
+            ITrailerTransformer ItrailerTransformer,ErstelStacks erstelStacks, 
             ref int objectID, ref int rootObjectID)
         {
             IHeaderPDF headerPDF = new HeaderPDF();
-
             AddObject(headerPDF.GetHeader(HeaderPDF.VersionPDF.PDF_1_0), erstelStacks);
 
-            AddObject(dictionaryPDF.GetCatalogObject(ref objectID, ref rootObjectID), erstelStacks);
-            AddObject(dictionaryPDF.GetOutlinesObject(ref objectID), erstelStacks);
-            AddObject(dictionaryPDF.GetPagesObject(ref objectID), erstelStacks);
-            AddObject(dictionaryPDF.GetPageObject(ref objectID), erstelStacks);
 
-            AddObject(dictionaryPDF.GetXrefObject(IxReferenceTransformer,IbyteCounter,erstelStacks.DocumentTextContent,
-                erstelStacks.XreferenceTable), erstelStacks);
-            AddObject(dictionaryPDF.GetTrailerObject(IbyteCounter, ItrailerTransformer,IxReferenceTransformer, 
-                erstelStacks.DocumentTextContent, rootObjectID), erstelStacks);
+            // Calling order for every object: 1. Call constructor 2. count objects 3. synchronise with main counter 4. get this object
+            ICatalogObjectPDF catalogObjectPDF = new CatalogObjectPDF(objectID, rootObjectID, CatalogObjectPDF.PageOutlineMode.Outlines);
+            catalogObjectPDF.CountObjects();
+            catalogObjectPDF.SyncMainCounter(ref objectID, ref rootObjectID);
+            AddObject(catalogObjectPDF.GetObject(), erstelStacks);
+
+            
+
+            IOutlinesObjectPDF outlinesObjectPDF = new OutlinesObjectPDF(objectID);
+            outlinesObjectPDF.CountObjects();
+            outlinesObjectPDF.SyncMainCounter(ref objectID);
+            AddObject(outlinesObjectPDF.GetObject(), erstelStacks);
+
+
+
+           
+            IPagesObjectPDF pagesObjectPDF = new PagesObjectPDF(objectID, 1);
+            pagesObjectPDF.CountObjects();
+            pagesObjectPDF.SyncMainCounter(ref objectID);
+            AddObject(pagesObjectPDF.GetObject(), erstelStacks);
+
+
+            PageFormatType pageFormat = new PageFormatType(0,0,612,792);
+
+            IPageObjectPDF pageObjectPDF = new PageObjectPDF(objectID, pageFormat);
+            pageObjectPDF.CountObjects();
+            pageObjectPDF.SyncMainCounter(ref objectID);
+            AddObject(pageObjectPDF.GetObject(), erstelStacks);
+
+           
+            IXrefObjectPDF xrefObject = new XrefObjectPDF(IxReferenceTransformer, erstelStacks.DocumentTextContent, erstelStacks.XreferenceTable);
+            AddObject(xrefObject.GetObject(), erstelStacks);
+
+            ITrailerObjectPDF trailerObjectPDF = new TrailerObjectPDF(ItrailerTransformer, IxReferenceTransformer,
+                erstelStacks.DocumentTextContent, rootObjectID);
+            AddObject(trailerObjectPDF.GetObject(), erstelStacks);
         }
         public void WriteAllObjects(BinaryWriter writer, ErstelStacks erstelStacks)
         {
@@ -57,7 +84,6 @@ namespace ErstelPDF.Core
 
 
             var _erstelStacks = new ErstelStacks();
-            var _dictionaryPDF = new DictionaryPDF();
 
             // Interfaces dependencies
             var _ByteCounter = new ByteCounter();
@@ -69,7 +95,7 @@ namespace ErstelPDF.Core
 
                 // Adds empty page structure to registers
                 AddEmptyPageStructure(_ByteCounter, _xReferenceTransformer, _trailerTransformer,
-                    _erstelStacks,_dictionaryPDF ,ref objectID, ref rootObjectID);
+                    _erstelStacks, ref objectID, ref rootObjectID);
 
                 // For testing adding contet
                 CreateFile(path, _erstelStacks);
@@ -89,7 +115,6 @@ namespace ErstelPDF.Core
 
 
                 var _erstelStacks = new ErstelStacks();
-                var _dictionaryPDF = new DictionaryPDF();
 
                 // Interfaces dependencies
                 var _ByteCounter = new ByteCounter();
@@ -100,8 +125,8 @@ namespace ErstelPDF.Core
                 {
 
                     // Adds empty page structure to registers
-                    AddEmptyPageStructure(_ByteCounter, _xReferenceTransformer, _trailerTransformer, 
-                        _erstelStacks, _dictionaryPDF, ref objectID, ref rootObjectID);
+                    AddEmptyPageStructure(_ByteCounter, _xReferenceTransformer, _trailerTransformer,
+                        _erstelStacks, ref objectID, ref rootObjectID);
 
                     // For testing adding contet
                     CreateFile(path, _erstelStacks);

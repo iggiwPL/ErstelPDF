@@ -13,7 +13,7 @@ namespace ErstelPDF.Tests
         [TestCase(HeaderPDF.VersionPDF.PDF_1_0, "1.0")]
         public void GetVersionOnlyTest(HeaderPDF.VersionPDF VersionPDF, string expected)
         {
-            IHeaderPDF headerPDF = new HeaderPDF();
+            HeaderPDF headerPDF = new HeaderPDF();
             string text = headerPDF.GetVersion(VersionPDF);
 
             Assert.That(text, Is.EqualTo(expected));
@@ -21,7 +21,7 @@ namespace ErstelPDF.Tests
         [TestCase(HeaderPDF.VersionPDF.PDF_1_0, "%PDF-1.0\n")]
         public void GetHeaderTest(HeaderPDF.VersionPDF VersionPDF, string expected)
         {
-            IHeaderPDF headerPDF = new HeaderPDF();
+            HeaderPDF headerPDF = new HeaderPDF();
             string text = headerPDF.GetHeader(VersionPDF);
 
             Assert.That(text, Is.EqualTo(expected));
