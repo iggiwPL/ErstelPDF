@@ -22,7 +22,7 @@ The ErstelPDF is a designed library with a small size to create PDF Files. The n
 - **v.0.0.3ind** - Generate an empty PDF page and unify the datatypes Queues. | Done
 - **v.0.0.4ind** - Cover with unit tests. | Done
 - **v.0.0.5ind** - Identical with previous version and make it thread safe. Made this function for creating PDF self-contained by idea every thread = PDF file | Done
-- **v.0.0.6ind** - Make it modular.
+- **v.0.0.6ind** - Make it modular. | Done
 
 ## Namespaces functionalities
 
