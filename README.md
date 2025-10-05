@@ -23,6 +23,7 @@ The ErstelPDF is a designed library with a small size to create PDF Files. The n
 - **v.0.0.4ind** - Cover with unit tests. | Done
 - **v.0.0.5ind** - Identical with previous version and make it thread safe. Made this function for creating PDF self-contained by idea every thread = PDF file | Done
 - **v.0.0.6ind** - Make it modular. | Done
+- **v.0.0.7ind** - Improve the paralellisation of generating PDF by applying both: sequental and parallel using max 2 threads 
 
 ## Namespaces functionalities
 
